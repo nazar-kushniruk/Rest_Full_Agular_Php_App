@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="reportsApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Rest Api App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://unpkg.com/@uirouter/angularjs/release/angular-ui-router.js"></script>
+
+    <script src="app.js"></script>
+</head>
+<body>
+<a name="top"></a>
+<div class="container" ng-controller="reportsController">
+    <div class="jumbotron">
+        <h1 class="text-center">Gazeta.vn.ua</h1>
+
+    </div>
+    <div class="text-center">
+        <div class="col-12">
+            <button class="btn btn-lg btn-success text-center" ng-click="openFormAdd()">Add new  report</button>
+        </div>
+    </div>
+
+
+    <form class="text-center cut-down" id="addForm" name="reportAdd">
+        <p class="text-center">
+        <h2>Add new report</h2></p>
+        <div class="form-group ">
+            <label>Host</label>
+            <input class="form-control" type="text" ng-model="newHost" name="hostAdd" required/>
+            <span class="error" ng-show="reportAdd.hostAdd.$error.required">required</span>
+        </div>
+
+        <div class="form-group text-center">
+            <label>Code</label>
+            <input class="form-control" type="number" ng-model="newCode" name="codeAdd">
+            <small class="form-text text-muted">you can only enter numbers</small>
+        </div>
+
+        <div class="form-group text-center">
+            <label>Message</label>
+            <textarea class="form-control" rows="5" cols="25" ng-model="newMessage" name="messageAdd"></textarea>
+        </div>
+        <input type="button" class="btn btn-primary" value="Add" ng-click="addReport()">
+
+
+    </form>
+
+    <form class="text-center cut-down" id="updateForm" name="reportUpdate">
+
+        <p class="text-center">
+        <h2>Update report #{{idInput}}</h2></p>
+
+        <div class="form-group text-center">
+            <label>Host</label>
+            <input class="form-control" type="text" ng-model="hostInput" name="hostAdd">
+            <span class="error" ng-show="reportAdd.hostAdd.$error.required">required</span>
+        </div>
+
+        <div class="form-group text-center">
+            <label>Code</label>
+            <input class="form-control" type="number" ng-model="codeInput" name="codeAdd">
+            <small class="form-text text-muted">you can only enter numbers</small>
+        </div>
+
+        <div class="form-group text-center">
+            <label>Message</label>
+            <textarea class="form-control" rows="5" cols="25" ng-model="messageInput" name="messageAdd">{{messageInput}}
+        </textarea>
+        </div>
+        <input type="button" class="btn btn-primary" value="Update" ng-click="updateReport()">
+
+
+    </form>
+
+
+    <div class="row jumbotron" ng-repeat="report in allReports">
+        <div class="panel panel-default">
+            <div class="col-md-12 panel-body">
+                <button class="btn btn-sm btn-danger" ng-click="deleteReport( report.id )">X</button>
+                <button class="btn btn-sm btn-info" ng-click="openFormUpdate(report)">Update</button>
+            </div>
+            <div class="col-md-12 bg-dark">
+                <h6>Host</h6>
+                <p>{{ report.host }}</p>
+                <h6>Code</h6>
+                <p>{{ report.code }}</p>
+                <h6>Message</h6>
+                <p>{{ report.message }}</p>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<ui-view></ui-view>
+</body>
+</html>
